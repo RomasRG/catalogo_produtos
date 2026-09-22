@@ -1,0 +1,31 @@
+table{
+    border-collapse: collapse;
+}
+
+td{
+    border: solid black 0.5px;
+    padding: 5px;
+    width: 15%;
+}
+
+.FirstLine{
+    width: 100%;
+    max-width: 200px;
+    background-color: rgb(199, 199, 199);
+}
+
+#categories{
+    width: 100%;
+    max-width: 900px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px;
+}
+
+.category{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
