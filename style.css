@@ -42,10 +42,16 @@ body {
     
 }
 
+#tableDiv{
+    display: inline-block;
+    overflow-x: auto;
+    width: 100%;
+}
+
 table{
    border-collapse: collapse;
     border-radius: var(--radius);
-    overflow: hidden;
+    overflow: auto;
     margin: 20px;
 }
 
@@ -112,12 +118,17 @@ fieldset{
 }
 
 @media(max-width: 500px){
+    body{
+        align-items: flex-start;
+    }
+
     #categories, #providers{
         display: flex;
         flex-direction: column;
         align-items: center;
         padding: 8px;
     }
+
     td{
         border: solid var(--border-color) 0.5px;
         font-size: 16px;
