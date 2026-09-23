@@ -89,8 +89,7 @@ fieldset{
 }
 
 .FirstLine{
-    width: 100%;
-    max-width: 200px;
+    width: 1000px;
     background-color: var(--primary-dark);
     color: var(--background-color);
 }
