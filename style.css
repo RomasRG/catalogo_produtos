@@ -1,20 +1,101 @@
+:scope {
+    /* Cores principais */
+    --primary-color: #2e7d32;
+    --primary-dark: #154518;
+    --primary-light: #c5ffc8;
+
+    /* Cores auxiliares */
+    --secondary-color: #1565c0;
+    --warning-color: #f9a825;
+    --danger-color: #c62828;
+
+    /* Fundo */
+    --background-color: #f5f7fa;
+    --surface-color: #ffffff;
+
+    /* Texto */
+    --text-primary: #212121;
+    --text-secondary: #616161;
+    --text-light: #ffffff;
+
+    /* Bordas */
+    --border-color: #dcdcdc;
+
+    /* Fontes */
+    --font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+
+    /* Sombras */
+    --shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+    /* Espaçamentos */
+    --radius: 8px;
+}
+
+body {
+    font-family: var(--font-family);
+    background-color: var(--background-color);
+    color: var(--text-primary);
+    margin: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+}
+
 table{
-    border-collapse: collapse;
+   border-collapse: collapse;
+    border-radius: var(--radius);
+    overflow: hidden;
+    margin: 20px;
 }
 
 td{
-    border: solid black 0.5px;
+    border: solid var(--border-color) 0.5px;
+    font-size: 18px;
     padding: 5px;
     width: 15%;
+}
+
+tbody > tr:nth-child(2n){
+    background-color: var(--border-color);
+}
+
+button{
+    background-color: var(--primary-color);
+    color: var(--background-color);
+    border: none;
+    height: 34px;
+    width: 100px;
+    border-radius: 100px;
+}
+
+input[type="radio"] {
+    accent-color: var(--primary-color);
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+label {
+    cursor: pointer;
+    font-size: 18px;
+    color: var(--primary-dark);
+    padding: 8px;;
+}
+
+fieldset{
+    border-radius: var(--radius);
+    border: solid var(--border-color) 0.5px;
 }
 
 .FirstLine{
     width: 100%;
     max-width: 200px;
-    background-color: rgb(199, 199, 199);
+    background-color: var(--primary-dark);
+    color: var(--background-color);
 }
 
-#categories{
+#categories, #providers{
     width: 100%;
     max-width: 900px;
     display: flex;
@@ -28,4 +109,19 @@ td{
     display: flex;
     flex-direction: row;
     align-items: center;
+}
+
+@media(max-width: 500px){
+    #categories, #providers{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 8px;
+    }
+    td{
+        border: solid var(--border-color) 0.5px;
+        font-size: 16px;
+        padding: 5px;
+        width: 15%;
+    }
 }

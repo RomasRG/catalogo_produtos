@@ -22,7 +22,7 @@ class Interface{
             category.className = "prodCategory";
             category.textContent = produto.category.name;
             provider.className = "prodProvider";
-            provider.textContent = produto.provider;
+            provider.textContent = produto.provider.name;
             element.append(id, name, price, stock, category, provider);
             body.append(element);
         }
@@ -30,23 +30,52 @@ class Interface{
 
     visualizarCategorias(categorias){
         const categories = document.getElementById("categories");
-        console.log(categorias);
         for(const categoria of categorias){
-            console.log(categoria);
             const checkbox = document.createElement("input");
             const label = document.createElement("label");
             const division = document.createElement("div");
-            division.className = "catogory"
-            checkbox.type = "checkbox";
-            checkbox.name = categoria.name;
+            division.className = "category"
+            checkbox.type = "radio";
+            checkbox.name = "opcao";
             checkbox.id = categoria.id;
-            checkbox.addEventListener('change', ()=>{
+            checkbox.addEventListener('change', () => {
                 if(checkbox.checked){
-                    this.visualizarProdutos(banco.products.filter(product => product.category === categoria.name))
+                    const body = document.querySelector("#productsTable tbody");
+                    while(body.firstChild){
+                        body.removeChild(body.firstChild);
+                    }
+                    this.visualizarProdutos(banco.products.filter(product => product.category.id === categoria.id));
                 }
             });
             label.setAttribute("for", categoria.id)
             label.textContent = categoria.name;
+            division.append(checkbox);
+            division.append(label);
+            categories.append(division);
+        }
+    }
+
+    visualizarFornecedores(providers){
+        const categories = document.getElementById("providers");
+        for(const provider of providers){
+            const checkbox = document.createElement("input");
+            const label = document.createElement("label");
+            const division = document.createElement("div");
+            division.className = "category";
+            checkbox.type = "radio";
+            checkbox.name = "opcao";
+            checkbox.id = provider.id;
+            checkbox.addEventListener('change', () => {
+                if(checkbox.checked){
+                    const body = document.querySelector("#productsTable tbody");
+                    while(body.firstChild){
+                        body.removeChild(body.firstChild);
+                    }
+                    this.visualizarProdutos(banco.products.filter(product => product.provider.id === provider.id));
+                }
+            });
+            label.setAttribute("for", provider.id)
+            label.textContent = provider.name;
             division.append(checkbox);
             division.append(label);
             categories.append(division);
@@ -134,18 +163,54 @@ class Provider{
     }
 }
 
-// const prodTeste = new Product("123", "sabao", 12, 5, "limpeza", "Veja");
+function priceSearch(price, products){
+    const prods = products.filter(product => product.price <= price && product.price >= price/2);
+    return prods;
+}
+
+function clickSearchBtn(e){
+    if(e.keyCode == 13){
+        const searchBtn = document.querySelector("#searchBtn");
+        searchBtn.click();
+    }
+}
+
 const interface = new Interface;
 const produtos = [
-    new Product("133", "detergente", 12, 25, new Category(1, "limpeza"), "Ype"),
-    new Product("143", "guarana", 7.5, 15, new Category(2, "bebida"), "Coca-cola"),
-    new Product("153", "pastel", 6.5, 12, new Category(3 ,"padaria"), "Panificadora da Terra"),
-    new Product("163", "caderno", 15, 12, new Category(4, "escritorio"), "tilibra"),
-    new Product("173", "lapis", 6, 25, new Category(4, "escritorio"), "Faber Castell")
+    new Product("133", "detergente", 12, 25, new Category(1, "limpeza"), new Provider(11, "Ype")),
+    new Product("143", "guarana", 7.5, 15, new Category(2, "bebida"), new Provider(21, "Coca-cola")),
+    new Product("153", "pastel", 6.5, 12, new Category(3 ,"padaria"), new Provider(31, "Panificadora da Terra")),
+    new Product("163", "caderno", 15, 13, new Category(4, "escritorio"), new Provider(41, "tilibra")),
+    new Product("173", "lapis", 6, 20, new Category(4, "escritorio"), new Provider(51, "Faber Castell")),
+    new Product("667" ,"notebook", 670, 10, new Category(67, "tecnologia"), new Provider(61, "Lenovo"))
 ];
+const rTodos = document.querySelector("#todos");
+const searchBtn = document.querySelector("#searchBtn");
+const searchBar = document.querySelector("#search");
 
 banco.setProducts(produtos);
-console.log(banco.products);
+rTodos.addEventListener('change', () => {
+    if(rTodos.checked){
+        const body = document.querySelector("#productsTable tbody");
+        if(!!body.childNodes.length){
+            while(body.firstChild){
+                body.removeChild(body.firstChild);
+            }
+        }
+        interface.visualizarProdutos(banco.products);
+    }
+});
+
+searchBtn.addEventListener('click', () => {
+        const body = document.querySelector("#productsTable tbody");
+        if(!!body.childNodes.length){
+            while(body.firstChild){
+                body.removeChild(body.firstChild);
+            }
+        }
+        interface.visualizarProdutos(priceSearch(parseFloat(searchBar.value), banco.products));
+});
+
 interface.visualizarProdutos(banco.products);
-console.log(banco.categories);
 interface.visualizarCategorias(banco.categories);
+interface.visualizarFornecedores(banco.providers);

@@ -9,7 +9,18 @@
 <body>
     <fieldset id="categories">
         <legend>Categorias</legend>
+        <div class="category">
+            <input type="radio" name="opcao" id="todos" checked>
+            <label for="todos">todos</label>
+        </div>
     </fieldset>
+    <fieldset id="providers">
+        <legend>Fornecedores</legend>
+    </fieldset>
+    <div style="display: flex; gap:20px; padding: 20px; flex-direction: row; align-items: center;">
+        Busca por preço em R$<input type="text" name="pesquisa" id="search" placeholder="999.99" onkeyup="clickSearchBtn(event)">
+        <button class="btn" id="searchBtn">pesquisar</button>
+    </div>
     <table id="productsTable">
         <thead>
             <tr class="FirstLine">
